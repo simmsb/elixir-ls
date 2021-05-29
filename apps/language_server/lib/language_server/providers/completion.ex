@@ -24,36 +24,36 @@ defmodule ElixirLS.LanguageServer.Providers.Completion do
   ]
 
   @func_snippets %{
-    {"Kernel.SpecialForms", "case"} => "case $1 do\n\t$2 ->\n\t\t$0\nend",
-    {"Kernel.SpecialForms", "with"} => "with $2 <- $1 do\n\t$0\nend",
-    {"Kernel.SpecialForms", "cond"} => "cond do\n\t$1 ->\n\t\t$0\nend",
+    {"Kernel.SpecialForms", "case"} => "case $1 do\n  $2 ->\n    $0\nend",
+    {"Kernel.SpecialForms", "with"} => "with $2 <- $1 do\n  $0\nend",
+    {"Kernel.SpecialForms", "cond"} => "cond do\n  $1 ->\n    $0\nend",
     {"Kernel.SpecialForms", "receive"} =>
-      "receive do\n\t${1:{${2::message_type}, ${3:value}\\}} ->\n\t\t${0:# code}\nend\n",
+      "receive do\n  ${1:{${2::message_type}, ${3:value}\\}} ->\n    ${0:# code}\nend\n",
     {"Kernel.SpecialForms", "fn"} => "fn $1 -> $0 end",
-    {"Kernel.SpecialForms", "for"} => "for $1 <- $2 do\n\t$3\nend",
+    {"Kernel.SpecialForms", "for"} => "for $1 <- $2 do\n  $3\nend",
     {"Kernel.SpecialForms", "super"} => "super($1)",
-    {"Kernel.SpecialForms", "quote"} => "quote do\n\t$0\nend",
-    {"Kernel.SpecialForms", "try"} => "try do\n\t$0\nend",
-    {"Kernel", "if"} => "if $1 do\n\t$0\nend",
-    {"Kernel", "unless"} => "unless $1 do\n\t$0\nend",
-    {"Kernel", "def"} => "def $1 do\n\t$0\nend",
-    {"Kernel", "defp"} => "defp $1 do\n\t$0\nend",
+    {"Kernel.SpecialForms", "quote"} => "quote do\n  $0\nend",
+    {"Kernel.SpecialForms", "try"} => "try do\n  $0\nend",
+    {"Kernel", "if"} => "if $1 do\n  $0\nend",
+    {"Kernel", "unless"} => "unless $1 do\n  $0\nend",
+    {"Kernel", "def"} => "def $1 do\n  $0\nend",
+    {"Kernel", "defp"} => "defp $1 do\n  $0\nend",
     {"Kernel", "defcallback"} => "defcallback $1 :: $0",
     {"Kernel", "defdelegate"} => "defdelegate $1, to: $0",
     {"Kernel", "defexception"} => "defexception [${1::message}]",
     {"Kernel", "defguard"} => "defguard ${1:guard_name}($2) when $3",
     {"Kernel", "defguardp"} => "defguardp ${1:guard_name}($2) when $3",
-    {"Kernel", "defimpl"} => "defimpl $1, for: $2 do\n\t$0\nend",
-    {"Kernel", "defmacro"} => "defmacro $1 do\n\t$0\nend",
+    {"Kernel", "defimpl"} => "defimpl $1, for: $2 do\n  $0\nend",
+    {"Kernel", "defmacro"} => "defmacro $1 do\n  $0\nend",
     {"Kernel", "defmacrocallback"} => "defmacrocallback $1 :: $0",
-    {"Kernel", "defmacrop"} => "defmacrop $1 do\n\t$0\nend",
-    {"Kernel", "defmodule"} => "defmodule $1 do\n\t$0\nend",
-    {"Kernel", "defprotocol"} => "defprotocol $1 do\n\t$0\nend",
+    {"Kernel", "defmacrop"} => "defmacrop $1 do\n  $0\nend",
+    {"Kernel", "defmodule"} => "defmodule $1 do\n  $0\nend",
+    {"Kernel", "defprotocol"} => "defprotocol $1 do\n  $0\nend",
     {"Kernel", "defstruct"} => "defstruct $1: $2",
-    {"ExUnit.Callbacks", "setup"} => "setup ${1:%{$2\\}} do\n\t$3\nend",
-    {"ExUnit.Callbacks", "setup_all"} => "setup_all ${1:%{$2\\}} do\n\t$3\nend",
-    {"ExUnit.Case", "test"} => "test \"$1\" do\n\t$0\nend",
-    {"ExUnit.Case", "describe"} => "describe \"$1\" do\n\t$0\nend"
+    {"ExUnit.Callbacks", "setup"} => "setup ${1:%{$2\\}} do\n  $3\nend",
+    {"ExUnit.Callbacks", "setup_all"} => "setup_all ${1:%{$2\\}} do\n  $3\nend",
+    {"ExUnit.Case", "test"} => "test \"$1\" do\n  $0\nend",
+    {"ExUnit.Case", "describe"} => "describe \"$1\" do\n  $0\nend"
   }
 
   # Alternative snippets versions to be preferred when preceded by a pipe
@@ -558,7 +558,7 @@ defmodule ElixirLS.LanguageServer.Providers.Completion do
 
   defp def_snippet(def_str, name, args, arity, opts) do
     if Keyword.get(opts, :snippets_supported, false) do
-      "#{def_str}#{function_snippet(name, args, arity, opts)} do\n\t$0\nend"
+      "#{def_str}#{function_snippet(name, args, arity, opts)} do\n  $0\nend"
     else
       "#{def_str}#{name}"
     end

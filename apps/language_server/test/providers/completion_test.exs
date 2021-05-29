@@ -265,7 +265,7 @@ defmodule ElixirLS.LanguageServer.Providers.CompletionTest do
 
     assert first_completion["label"] =~ "def build_greeting"
 
-    assert first_completion["insertText"] == "def build_greeting(${1:name}) do\n\t$0\nend"
+    assert first_completion["insertText"] == "def build_greeting(${1:name}) do\n  $0\nend"
   end
 
   test "provides completions for callbacks with `def` before" do
